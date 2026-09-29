@@ -1,25 +1,34 @@
 # Cisco Multi-LAN Office Network Lab
 
-A multi-LAN office network designed and implemented in Cisco Packet Tracer.
+I built this lab in Cisco Packet Tracer to practice IPv4 networking 
+and basic network services in a realistic office scenario.
 
-This project simulates a small office network with four IPv4 LANs, two routers, multiple switches, centralized DHCP, DHCP relay, DNS, web services, wireless access, and structured cabling.
+The network is based on a small office with four LANs, two routers, 
+several switches, servers, wireless devices, and structured cabling.
 
 ---
 
-## Network Overview
+## Why I Built This
 
-The network is divided into four separate LANs:
+I wanted to practice the networking concepts I learned in Network+ 
+and get comfortable with Packet Tracer before moving on to CCNA. 
+This is my second networking project.
 
-- **LAN 1 – Administration**
-- **LAN 2 – IT & Server Department**
-- **LAN 3 – Employees**
-- **LAN 4 – Guest Area**
+---
 
-R1 connects LAN 1 and LAN 2.
+## Network Layout
 
-R2 connects LAN 3 and LAN 4.
+The network is split into four separate LANs:
 
-R1 and R2 are connected through a routed point-to-point link.
+- **LAN 1** – Administration
+- **LAN 2** – IT & Server Department
+- **LAN 3** – Employees
+- **LAN 4** – Guest Area
+
+R1 connects LAN 1 and LAN 2.  
+R2 connects LAN 3 and LAN 4.  
+The two routers are connected to each other so the four LANs 
+can communicate.
 
 ---
 
@@ -38,7 +47,7 @@ R1 and R2 are connected through a routed point-to-point link.
 ## IP Addressing
 
 | LAN | Network | Gateway |
-|---|---|---|
+|-----|---------|---------|
 | LAN 1 | 192.168.1.0/24 | 192.168.1.1 |
 | LAN 2 | 192.168.2.0/24 | 192.168.2.1 |
 | LAN 3 | 192.168.3.0/24 | 192.168.3.1 |
@@ -46,16 +55,15 @@ R1 and R2 are connected through a routed point-to-point link.
 
 ### DHCP Server
 
-The network uses a centralized DHCP server located in LAN 1.
+The DHCP server sits in LAN 1 with the IP address **192.168.1.2**.
 
-DHCP relay is configured on the appropriate router interfaces for remote LANs.
+LAN 2, LAN 3, and LAN 4 reach it through DHCP relay.
 
 ---
 
-## Network Devices
+## Devices
 
 ### LAN 1 – Administration
-
 - 2 PCs
 - 2 Laptops
 - DHCP Server
@@ -63,7 +71,6 @@ DHCP relay is configured on the appropriate router interfaces for remote LANs.
 - Cisco 2960 Switch
 
 ### LAN 2 – IT & Server Department
-
 - 1 PC
 - 1 Laptop
 - 3 Web/DNS Servers
@@ -72,7 +79,6 @@ DHCP relay is configured on the appropriate router interfaces for remote LANs.
 - Cisco 3560 Switch
 
 ### LAN 3 – Employees
-
 - 5 PCs
 - 1 Laptop
 - Printer
@@ -80,7 +86,6 @@ DHCP relay is configured on the appropriate router interfaces for remote LANs.
 - Cisco 3560 Switch
 
 ### LAN 4 – Guest Area
-
 - 6 Laptops
 - 1 Wireless Laptop
 - Smartphone
@@ -89,7 +94,6 @@ DHCP relay is configured on the appropriate router interfaces for remote LANs.
 - Cisco 2960 Switch
 
 ### Network / Wiring Closet
-
 - 2 Routers
 - 2 Cisco 2960 Switches
 - 2 Cisco 3560 Switches
@@ -107,23 +111,24 @@ DHCP relay is configured on the appropriate router interfaces for remote LANs.
 - Web Services
 - Wireless Network Setup
 
-A Backup Server is included in the network as a dedicated server endpoint.
+The Backup Server is included as a server endpoint.  
+A full backup system is not configured in this lab.
 
-The IP Phone is included as a network endpoint. Full VoIP infrastructure is not implemented in this lab.
+The IP Phone is connected to the network as an endpoint.  
+Full VoIP infrastructure is not configured in this lab.
 
 ---
 
 ## Routing
 
-Static routing is used to provide connectivity between the four LANs through R1 and R2.
+Static routing is used to provide connectivity between the 
+four LANs through R1 and R2.
 
 ---
 
 ## DHCP Verification
 
-DHCP was tested across all four LANs.
-
-The remote LANs use DHCP relay to forward DHCP requests to the centralized DHCP server.
+DHCP was tested on all four LANs.
 
 ![LAN 1 DHCP](screenshots/LAN1-DHCP.png)
 
@@ -135,21 +140,25 @@ The remote LANs use DHCP relay to forward DHCP requests to the centralized DHCP 
 
 ---
 
-## Connectivity Verification
+## DHCP Relay Configuration
 
-Router-to-router connectivity was tested successfully.
+![DHCP Relay Config](screenshots/DHCP-Relay-Config.png)
 
-![R1-R2 Connectivity](screenshots/R1-R2-Ping.png)
+---
 
-Inter-LAN connectivity was also tested between LAN 1 and LAN 4.
+## Router-to-Router Connectivity
 
-![Inter-LAN Ping](screenshots/LAN1-to-LAN4-Ping.png)
+![R1-R2 Ping](screenshots/R1-R2-Ping.png)
+
+---
+
+## Inter-LAN Connectivity
+
+![LAN1 to LAN4 Ping](screenshots/LAN1-to-LAN4-Ping.png)
 
 ---
 
 ## Traceroute
-
-Traceroute was used to verify the path between LAN 1 and LAN 4.
 
 ![Traceroute](screenshots/LAN1-to-LAN4-Traceroute.png)
 
@@ -157,15 +166,15 @@ Traceroute was used to verify the path between LAN 1 and LAN 4.
 
 ## DNS Verification
 
-DNS name resolution was tested using `nslookup`.
+Tested with `nslookup`.
 
 ![DNS Resolution](screenshots/DNS-Resolution.png)
 
 ---
 
-## Web Server Verification
+## Web Server
 
-Web access was tested using both the Web Server IP address and the configured domain name.
+Tested with both the IP address and the domain name.
 
 ![Web Server - IP](screenshots/Web-server-IP.png)
 
@@ -173,27 +182,27 @@ Web access was tested using both the Web Server IP address and the configured do
 
 ---
 
-## Router Verification
-
-The router configurations and verification outputs are available in the `configs` directory.
+## Router Configurations
 
 - [R1 Configuration](configs/Configs-R1.txt)
 - [R2 Configuration](configs/Configs-R2.txt)
-
-Verification includes:
-
-- `show ip interface brief`
-- `show ip route`
-- DHCP relay configuration
-- Router-to-router connectivity
 
 ---
 
 ## Project Files
 
-The complete Packet Tracer project is available in the `packet-tracer` directory.
+- `packet-tracer/` – Packet Tracer project file
+- `screenshots/` – All verification screenshots
+- `configs/` – Router running configurations
 
-Additional verification screenshots are available in the `screenshots` directory.
+---
+
+## What I Learned
+
+- Planning IPv4 addressing for multiple LANs
+- How DHCP relay works when the server is on another subnet
+- Testing a network properly before documenting it
+- Structuring a project for GitHub
 
 ---
 
@@ -214,6 +223,5 @@ Additional verification screenshots are available in the `screenshots` directory
 
 ## Project Status
 
-**Version:** v1.0
-
+**Version:** v1.0  
 **Status:** Completed
