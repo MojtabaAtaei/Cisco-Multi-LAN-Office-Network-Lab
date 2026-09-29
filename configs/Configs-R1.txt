@@ -1,0 +1,136 @@
+Cisco Multi-LAN Office Network Lab
+Router: R1
+Configuration
+
+=======================================================
+
+
+Building configuration...
+
+Current configuration : 781 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.0.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ ip address 192.168.2.1 255.255.255.0
+ ip helper-address 192.168.1.2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 192.168.3.0 255.255.255.0 10.0.0.2 
+ip route 192.168.4.0 255.255.255.0 10.0.0.2 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+=============================================================
+Verification
+=============================================================
+
+------------------------------------------------------------
+show ip interface brief
+------------------------------------------------------------
+
+Interface              IP-Address      OK? Method Status                Protocol 
+GigabitEthernet0/0/0   10.0.0.1        YES manual up                    up 
+GigabitEthernet0/0/1   192.168.1.1     YES NVRAM  up                    up 
+GigabitEthernet0/0/2   192.168.2.1     YES NVRAM  up                    up 
+Vlan1                  unassigned      YES unset  administratively down down
+
+
+------------------------------------------------------------
+show ip route
+------------------------------------------------------------
+
+
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C       10.0.0.0/30 is directly connected, GigabitEthernet0/0/0
+L       10.0.0.1/32 is directly connected, GigabitEthernet0/0/0
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/24 is directly connected, GigabitEthernet0/0/1
+L       192.168.1.1/32 is directly connected, GigabitEthernet0/0/1
+     192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.2.0/24 is directly connected, GigabitEthernet0/0/2
+L       192.168.2.1/32 is directly connected, GigabitEthernet0/0/2
+S    192.168.3.0/24 [1/0] via 10.0.0.2
+S    192.168.4.0/24 [1/0] via 10.0.0.2
+
+
+
+-------------------------------------------------------------
+ DHCP Relay Configuration
+-------------------------------------------------------------
+show running-config | include helper-address
+ ip helper-address 192.168.1.2
